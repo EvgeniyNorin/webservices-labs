@@ -10,13 +10,13 @@ import java.util.List;
 
 public class WebServiceClient {
     public static void getStatus(ArticleWebService articleWebService) {
-        System.out.println("Articles Status");
+        System.out.println("-----------Article Table Content-----------");
         List<Article> articles = articleWebService.getArticles(null, null, null, null, null);
         for (Article article : articles) {
             System.out.println(article.toString());
         }
 
-        System.out.println("Total articles: " + articles.size());
+        System.out.println("-------------------------------------------");
         System.out.println();
     }
 
