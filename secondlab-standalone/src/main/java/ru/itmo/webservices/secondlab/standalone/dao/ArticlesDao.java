@@ -47,46 +47,54 @@ public class ArticlesDao {
         return articles;
     }
 
-    public long insert(String authorId, Long hIndex, String articleName, String articleDesc, Long dateAdded)  throws SQLException {
+    public long insert(String authorId, Long hIndex, String articleName, String articleDesc, Long dateAdded) {
         String sql = "INSERT INTO Article (author_id, h_index, article_name, article_desc, date_added) VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement preparedStatement = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setString(1, authorId);
-        preparedStatement.setLong(2, hIndex);
-        preparedStatement.setString(3, articleName);
-        preparedStatement.setString(4, articleDesc);
-        preparedStatement.setLong(5, dateAdded);
+        try {
+            PreparedStatement preparedStatement = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, authorId);
+            preparedStatement.setLong(2, hIndex);
+            preparedStatement.setString(3, articleName);
+            preparedStatement.setString(4, articleDesc);
+            preparedStatement.setLong(5, dateAdded);
 
-        int affectedRows = preparedStatement.executeUpdate();
+            int affectedRows = preparedStatement.executeUpdate();
 
-        if (affectedRows == 0) {
-            return -1;
-        }
-
-        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-            if (generatedKeys.next()) {
-                return generatedKeys.getLong(1);
-            }
-            else {
+            if (affectedRows == 0) {
                 return -1;
             }
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                return generatedKeys.getLong(1);
+            } else {
+                return -1;
+            }
+        } catch (SQLException e) {
+            return -1;
         }
     }
 
-    public int update(long id, String authorId, Long hIndex, String articleName, String articleDesc, Long dateAdded) throws SQLException {
+    public int update(long id, String authorId, Long hIndex, String articleName, String articleDesc, Long dateAdded) {
         String sql = QueryBuilder.buildUpdate(id, authorId, hIndex, articleName, articleDesc, dateAdded);
-
-        PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
-
-        int affectedRows = preparedStatement.executeUpdate();
-        return affectedRows == 0 ? -1 : 1;
+        try {
+            PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
+            int affectedRows = preparedStatement.executeUpdate();
+            return affectedRows == 0 ? -1 : 1;
+        } catch (SQLException e) {
+            return -1;
+        }
     }
 
-    public int delete(int id) throws SQLException {
+    public int delete(int id) {
         String sql = "DELETE FROM article WHERE article_id = ?";
-        PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
-        preparedStatement.setInt(1, id);
+        try {
+            PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
 
-        int affectedRows = preparedStatement.executeUpdate();
-        return affectedRows == 0 ? -1 : 1;
+            int affectedRows = preparedStatement.executeUpdate();
+            return affectedRows == 0 ? -1 : 1;
+        } catch (SQLException e) {
+            return -1;
+        }
     }
 }

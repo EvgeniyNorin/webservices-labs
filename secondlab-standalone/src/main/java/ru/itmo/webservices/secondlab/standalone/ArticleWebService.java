@@ -26,7 +26,7 @@ public class ArticleWebService {
                               @WebParam(name = "hIndex") Long hIndex,
                               @WebParam(name = "articleName") String articleName,
                               @WebParam(name = "articleDesc") String articleDesc,
-                              @WebParam(name = "dateAdded") Long dateAdded) throws SQLException {
+                              @WebParam(name = "dateAdded") Long dateAdded) {
         ArticlesDao dao = new ArticlesDao();
         return dao.insert(authorId, hIndex, articleName, articleDesc, dateAdded);
     }
@@ -37,13 +37,13 @@ public class ArticleWebService {
                               @WebParam(name = "hIndex") Long hIndex,
                               @WebParam(name = "articleName") String articleName,
                               @WebParam(name = "articleDesc") String articleDesc,
-                              @WebParam(name = "dateAdded") Long dateAdded) throws SQLException {
+                              @WebParam(name = "dateAdded") Long dateAdded) {
         ArticlesDao dao = new ArticlesDao();
         return dao.update(id, authorId, hIndex, articleName, articleDesc, dateAdded);
     }
 
     @WebMethod
-    public int deleteArticle(@WebParam(name = "id") int id) throws SQLException {
+    public int deleteArticle(@WebParam(name = "id") int id) {
         ArticlesDao dao = new ArticlesDao();
         return dao.delete(id);
     }
