@@ -3,7 +3,7 @@ package ru.itmo.webservices.thirdlab.standalone.dao;
 
 import ru.itmo.webservices.thirdlab.standalone.exceptions.ArticleServiceFault;
 import ru.itmo.webservices.thirdlab.standalone.exceptions.InsertingException;
-import ru.itmo.webservices.thirdlab.standalone.exceptions.InvalidEntityException;
+import ru.itmo.webservices.thirdlab.standalone.exceptions.RowsNotAffectedException;
 import ru.itmo.webservices.thirdlab.standalone.pojo.Article;
 
 import java.sql.*;
@@ -71,14 +71,14 @@ public class ArticlesDao {
         } catch (SQLException e) { }
         if (id == 0) {
             ArticleServiceFault fault = ArticleServiceFault.defaultInstance();
-            fault.setMessage("Error During creation entity");
-            throw new InsertingException("Error During creation entity", fault);
+            fault.setMessage("Error during creation entity");
+            throw new InsertingException("Error during creation entity", fault);
         }
 
         return id;
     }
 
-    public int update(long id, String authorId, Long hIndex, String articleName, String articleDesc, Long dateAdded) throws InvalidEntityException{
+    public int update(long id, String authorId, Long hIndex, String articleName, String articleDesc, Long dateAdded) throws RowsNotAffectedException {
         String sql = QueryBuilder.buildUpdate(id, authorId, hIndex, articleName, articleDesc, dateAdded);
         int affectedRows = 0;
         try {
@@ -87,25 +87,25 @@ public class ArticlesDao {
         } catch (SQLException e) { }
         if (affectedRows == 0) {
             ArticleServiceFault fault = ArticleServiceFault.defaultInstance();
-            fault.setMessage("Invalid entity");
-            throw new InvalidEntityException("Invalid entity", fault);
+            fault.setMessage("There are no records with such id");
+            throw new RowsNotAffectedException("There are no records with such id", fault);
         }
         return affectedRows;
     }
 
-    public int delete(int id) throws InvalidEntityException {
+    public int delete(long id) throws RowsNotAffectedException {
         String sql = "DELETE FROM article WHERE article_id = ?";
         int affectedRows = 0;
         try {
             PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
 
             affectedRows = preparedStatement.executeUpdate();
         } catch (SQLException e) { }
         if (affectedRows == 0) {
             ArticleServiceFault fault = ArticleServiceFault.defaultInstance();
-            fault.setMessage("Invalid entity");
-            throw new InvalidEntityException("Invalid entity", fault);
+            fault.setMessage("There are no records with such id");
+            throw new RowsNotAffectedException("There are no records with such id", fault);
         }
         return affectedRows;
     }

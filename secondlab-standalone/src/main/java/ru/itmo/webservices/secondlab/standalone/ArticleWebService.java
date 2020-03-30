@@ -6,7 +6,6 @@ import ru.itmo.webservices.secondlab.standalone.pojo.Article;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import java.sql.SQLException;
 import java.util.List;
 
 @WebService(serviceName = "ArticlesService")

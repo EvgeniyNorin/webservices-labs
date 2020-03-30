@@ -16,6 +16,7 @@
         <module>secondlab-standalone</module>
         <module>secondlab-client</module>
         <module>thirdlab-standalone</module>
+        <module>thirdlab-client</module>
     </modules>
 
     <properties>

@@ -65,23 +65,23 @@ public class ArticleWebService {
                               @WebParam(name = "hIndex") Long hIndex,
                               @WebParam(name = "articleName") String articleName,
                               @WebParam(name = "articleDesc") String articleDesc,
-                              @WebParam(name = "dateAdded") Long dateAdded) throws IllegalIdException, InvalidEntityException {
+                              @WebParam(name = "dateAdded") Long dateAdded) throws IllegalIdException, RowsNotAffectedException {
         ArticlesDao dao = new ArticlesDao();
-        if (id == 0) {
+        if (id == null) {
             ArticleServiceFault fault = ArticleServiceFault.defaultInstance();
-            fault.setMessage("Parameter id cannot be null or empty");
-            throw new IllegalIdException("Parameter id cannot be null or empty", fault);
+            fault.setMessage("Parameter id cannot be null");
+            throw new IllegalIdException("Parameter id cannot be null", fault);
         }
         return dao.update(id, authorId, hIndex, articleName, articleDesc, dateAdded);
     }
 
     @WebMethod
-    public int deleteArticle(@WebParam(name = "id") int id) throws IllegalIdException, InvalidEntityException {
+    public int deleteArticle(@WebParam(name = "id") Long id) throws IllegalIdException, RowsNotAffectedException {
         ArticlesDao dao = new ArticlesDao();
-        if (id == 0) {
+        if (id == null) {
             ArticleServiceFault fault = ArticleServiceFault.defaultInstance();
-            fault.setMessage("Parameter id cannot be null or empty");
-            throw new IllegalIdException("Parameter id cannot be null or empty", fault);
+            fault.setMessage("Parameter id cannot be null");
+            throw new IllegalIdException("Parameter id cannot be null", fault);
         }
         return dao.delete(id);
     }
