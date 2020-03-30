@@ -1,6 +1,9 @@
 package ru.itmo.webservices.thirdlab.standalone.dao;
 
 
+import ru.itmo.webservices.thirdlab.standalone.exceptions.ArticleServiceFault;
+import ru.itmo.webservices.thirdlab.standalone.exceptions.InsertingException;
+import ru.itmo.webservices.thirdlab.standalone.exceptions.InvalidEntityException;
 import ru.itmo.webservices.thirdlab.standalone.pojo.Article;
 
 import java.sql.*;
@@ -48,8 +51,9 @@ public class ArticlesDao {
         return articles;
     }
 
-    public long insert(String authorId, Long hIndex, String articleName, String articleDesc, Long dateAdded) {
+    public long insert(String authorId, Long hIndex, String articleName, String articleDesc, Long dateAdded) throws InsertingException {
         String sql = "INSERT INTO Article (author_id, h_index, article_name, article_desc, date_added) VALUES (?, ?, ?, ?, ?)";
+        long id = 0;
         try {
             PreparedStatement preparedStatement = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, authorId);
@@ -58,44 +62,51 @@ public class ArticlesDao {
             preparedStatement.setString(4, articleDesc);
             preparedStatement.setLong(5, dateAdded);
 
-            int affectedRows = preparedStatement.executeUpdate();
-
-            if (affectedRows == 0) {
-                return -1;
-            }
+            preparedStatement.executeUpdate();
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                return generatedKeys.getLong(1);
-            } else {
-                return -1;
+                id = generatedKeys.getLong(1);
             }
-        } catch (SQLException e) {
-            return -1;
+        } catch (SQLException e) { }
+        if (id == 0) {
+            ArticleServiceFault fault = ArticleServiceFault.defaultInstance();
+            fault.setMessage("Error During creation entity");
+            throw new InsertingException("Error During creation entity", fault);
         }
+
+        return id;
     }
 
-    public int update(long id, String authorId, Long hIndex, String articleName, String articleDesc, Long dateAdded) {
+    public int update(long id, String authorId, Long hIndex, String articleName, String articleDesc, Long dateAdded) throws InvalidEntityException{
         String sql = QueryBuilder.buildUpdate(id, authorId, hIndex, articleName, articleDesc, dateAdded);
+        int affectedRows = 0;
         try {
             PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
-            int affectedRows = preparedStatement.executeUpdate();
-            return affectedRows == 0 ? -1 : 1;
-        } catch (SQLException e) {
-            return -1;
+            affectedRows = preparedStatement.executeUpdate();
+        } catch (SQLException e) { }
+        if (affectedRows == 0) {
+            ArticleServiceFault fault = ArticleServiceFault.defaultInstance();
+            fault.setMessage("Invalid entity");
+            throw new InvalidEntityException("Invalid entity", fault);
         }
+        return affectedRows;
     }
 
-    public int delete(int id) {
+    public int delete(int id) throws InvalidEntityException {
         String sql = "DELETE FROM article WHERE article_id = ?";
+        int affectedRows = 0;
         try {
             PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
 
-            int affectedRows = preparedStatement.executeUpdate();
-            return affectedRows == 0 ? -1 : 1;
-        } catch (SQLException e) {
-            return -1;
+            affectedRows = preparedStatement.executeUpdate();
+        } catch (SQLException e) { }
+        if (affectedRows == 0) {
+            ArticleServiceFault fault = ArticleServiceFault.defaultInstance();
+            fault.setMessage("Invalid entity");
+            throw new InvalidEntityException("Invalid entity", fault);
         }
+        return affectedRows;
     }
 }
