@@ -1,6 +1,5 @@
 package ru.itmo.webservices.thirdlab.standalone.client;
 
-import com.sun.rowset.internal.Row;
 import ru.itmo.webservices.thirdlab.standalone.*;
 
 import java.net.MalformedURLException;
