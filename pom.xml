@@ -17,6 +17,9 @@
         <module>secondlab-client</module>
         <module>thirdlab-standalone</module>
         <module>thirdlab-client</module>
+        <module>fourthlab-standalone</module>
+        <module>fourthlab-j2ee</module>
+        <!--<module>fourthlab-client</module>-->
     </modules>
 
     <properties>

@@ -1,3 +1,7 @@
+CREATE USER myuser WITH PASSWORD 'mypass';
+CREATE DATABASE mydb WITH OWNER=myuser;
+
+
 CREATE TABLE Article
 (
   article_id   bigserial primary key,
