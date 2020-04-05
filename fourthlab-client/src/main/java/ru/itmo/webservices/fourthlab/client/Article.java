@@ -1,4 +1,4 @@
-package ru.itmo.webservices.fourthlab.j2ee;
+package ru.itmo.webservices.fourthlab.client;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

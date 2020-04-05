@@ -1,6 +1,10 @@
 .idea
-Report.docx
 firstlab-client/target
 firstlab-j2ee/target
 firstlab-standalone/target
+
+fourthlab-client/target
+fourthlab-j2ee/target
+fourthlab-standalone/target
+
 target/

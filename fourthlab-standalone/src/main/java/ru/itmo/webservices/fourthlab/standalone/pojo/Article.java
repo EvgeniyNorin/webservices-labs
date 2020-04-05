@@ -1,5 +1,8 @@
 package ru.itmo.webservices.fourthlab.standalone.pojo;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Article {
     private String authorId;
     private Long hIndex;

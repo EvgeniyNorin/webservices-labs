@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ConnectionUtil {
-    private static final String JDBC_URL = "jdbc:postgresql://192.168.99.100:32768/mydb";
+    private static final String JDBC_URL = "jdbc:postgresql://localhost:32768/mydb";
     private static final String JDBC_USER = "myuser";
     private static final String JDBC_PASSWORD = "mypass";
 
