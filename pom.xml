@@ -20,6 +20,9 @@
         <module>fourthlab-standalone</module>
         <module>fourthlab-j2ee</module>
         <module>fourthlab-client</module>
+        <module>fifthlab</module>
+        <module>sixthlab</module>
+        <module>seventhlab</module>
     </modules>
 
     <properties>
