@@ -23,6 +23,7 @@
         <module>fifthlab</module>
         <module>sixthlab</module>
         <module>seventhlab</module>
+        <module>files-loader</module>
     </modules>
 
     <properties>
