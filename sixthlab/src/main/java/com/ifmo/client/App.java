@@ -1,4 +1,4 @@
-package com.maxart.client;
+package com.ifmo.client;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;

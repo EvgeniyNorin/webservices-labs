@@ -1,4 +1,4 @@
-package com.maxart.service;
+package com.ifmo.service;
 
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
 import com.sun.jersey.api.core.PackagesResourceConfig;

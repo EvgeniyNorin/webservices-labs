@@ -1,4 +1,4 @@
-package com.maxart.service.exceptions;
+package com.ifmo.service.exceptions;
 
 public class InsertingException extends Exception {
 

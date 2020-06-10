@@ -1,4 +1,4 @@
-package com.maxart.service;
+package com.ifmo.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

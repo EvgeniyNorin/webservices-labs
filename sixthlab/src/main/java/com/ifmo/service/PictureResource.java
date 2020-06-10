@@ -1,9 +1,9 @@
-package com.maxart.service;
+package com.ifmo.service;
 
+import com.ifmo.service.exceptions.*;
 import com.maxart.service.exceptions.*;
 import org.postgresql.util.Base64;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.StringTokenizer;
 import javax.ws.rs.*;

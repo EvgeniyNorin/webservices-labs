@@ -1,6 +1,6 @@
-package com.maxart.service.exceptions;
+package com.ifmo.service.exceptions;
 
-import com.maxart.service.BasicResponse;
+import com.ifmo.service.BasicResponse;
 import com.sun.jersey.api.client.ClientResponse;
 
 import javax.ws.rs.core.MediaType;

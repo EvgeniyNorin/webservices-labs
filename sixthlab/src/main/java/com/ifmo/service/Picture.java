@@ -1,4 +1,4 @@
-package com.maxart.client;
+package com.ifmo.service;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -85,8 +85,7 @@ public class Picture {
     @Override
     public String toString() {
         return "Picture{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", author='" + author + '\'' +
                 ", year=" + year +
                 ", material='" + material + '\'' +

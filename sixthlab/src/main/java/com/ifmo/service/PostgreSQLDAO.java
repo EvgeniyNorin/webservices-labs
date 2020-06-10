@@ -1,8 +1,7 @@
-package com.maxart.service;
+package com.ifmo.service;
 
-import com.maxart.service.exceptions.IllegalIdException;
-import com.maxart.service.exceptions.InsertingException;
-import com.maxart.service.exceptions.InvalidEntityException;
+import com.ifmo.service.exceptions.InsertingException;
+import com.ifmo.service.exceptions.InvalidEntityException;
 
 import java.sql.*;
 import java.util.ArrayList;
